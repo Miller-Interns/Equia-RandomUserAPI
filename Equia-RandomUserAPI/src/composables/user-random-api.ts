@@ -11,13 +11,19 @@ export function useRandomUsers() {
   const selectedUser = ref<User | null>(null);
   const showModal = ref(false);
 
-  async function fetchUsers() {
-    if (userStore.localUsers.length > 0) {
-      return;
-    }
+  //fetch users
+  async function fetchUsers(page: number, results: number = 500) {
+    if (userStore.localUsers.length > 0) return;
+
     try {
-      const response = await fetch('https://randomuser.me/api/?results=500');
+      const params = new URLSearchParams({
+        page: page.toString(),
+        results: results.toString(),
+      });
+
+      const response = await fetch(`https://randomuser.me/api/?${params}`);
       const data = await response.json();
+
       userStore.saveUsersToStorage(data.results);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -60,7 +66,7 @@ export function useRandomUsers() {
   function resetUsers() {
     userStore.clearUsersFromStorage();
     currentPage.value = 1;
-    fetchUsers();
+    fetchUsers(currentPage.value);
   }
 
   // Modal
@@ -80,7 +86,7 @@ export function useRandomUsers() {
 
   onMounted(() => {
     userStore.loadUsersFromStorage();
-    fetchUsers();
+    fetchUsers(currentPage.value);
     window.addEventListener('beforeunload', handleBeforeUnload);
   });
 
