@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { User } from '../types/user-data';
+import type { User } from '../types/user';
 
 export const useUserStore = defineStore('userStore', () => {
   const localUsers = ref<User[]>([]);

@@ -1,4 +1,5 @@
-import type { User } from '@/types/user-data';
+import type { User } from '@/types/user';
+import { Gender } from '@/enums/gender-enum';
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useUserStore } from '../stores/store';
 
@@ -6,7 +7,7 @@ export function useRandomUsers() {
   const userStore = useUserStore();
   const usersPerPage = 10;
   const currentPage = ref(1);
-  const genderFilter = ref('all');
+  const genderFilter = ref<Gender>(Gender.ALL);
   const selectedUser = ref<User | null>(null);
   const showModal = ref(false);
 
@@ -25,7 +26,7 @@ export function useRandomUsers() {
 
   // Filtering
   const filteredUsers = computed(() => {
-    if (genderFilter.value === 'all') {
+    if (genderFilter.value === Gender.ALL) {
       return userStore.localUsers;
     }
     return userStore.localUsers.filter(

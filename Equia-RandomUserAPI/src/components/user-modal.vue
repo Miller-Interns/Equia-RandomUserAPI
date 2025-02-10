@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { defineProps, defineEmits } from 'vue';
-  import type { User } from '../types/user-data';
+  import type { User } from '../types/user';
 
   const { show, user } = defineProps<{
     show: boolean;
