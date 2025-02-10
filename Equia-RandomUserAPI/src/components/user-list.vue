@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import UserDetailModal from '../components/user-modal.vue';
   import { useRandomUsers } from '../composables/user-random-api';
+  import { Gender } from '@/enums/gender-enum';
 
   const {
     currentPage,
@@ -30,20 +31,20 @@
       <div class="control-bar">
         <div class="filter-buttons">
           <button
-            @click="genderFilter = 'all'"
-            :class="{ active: genderFilter === 'all' }"
+            @click="genderFilter = Gender.ALL"
+            :class="{ active: genderFilter === Gender.ALL }"
           >
             All
           </button>
           <button
-            @click="genderFilter = 'male'"
-            :class="{ active: genderFilter === 'male' }"
+            @click="genderFilter = Gender.MALE"
+            :class="{ active: genderFilter === Gender.MALE }"
           >
             Male
           </button>
           <button
-            @click="genderFilter = 'female'"
-            :class="{ active: genderFilter === 'female' }"
+            @click="genderFilter = Gender.FEMALE"
+            :class="{ active: genderFilter === Gender.FEMALE }"
           >
             Female
           </button>
